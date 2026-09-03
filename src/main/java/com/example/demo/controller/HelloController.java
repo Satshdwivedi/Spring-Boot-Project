@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,19 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.BookDTO;
 import com.example.demo.model.Book;
 import java.util.ArrayList;
-import java.util.Iterator;
 import com.example.demo.model.ErrorResponse;
+import com.example.demo.service.BookService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class HelloController {
-    ArrayList<Book> books = new ArrayList<>();
+    private BookService bookservice;
 
-    public HelloController() {
-        books.add(new Book(101, "Java", "Smith", "Programming Language", 587));
-        books.add(new Book(102, "Python", "Jhon", "Useful in AI", 489));
-        books.add(new Book(103, "SQL", "David", "Useful in Database", 450));
+    public HelloController(BookService bookservice) {
+        this.bookservice = bookservice;
     }
 
     @GetMapping("/hello")
@@ -42,70 +39,46 @@ public class HelloController {
     @GetMapping("/books")
     public ArrayList<Book> books() {
 
-        return books;
+        return bookservice.getAllBooks();
     }
 
     @GetMapping("/books/search")
     public ArrayList<Book> search(@RequestParam(required = false) String title) {
-        ArrayList<Book> res = new ArrayList<>();
-        for (Book p : books) {
-            if (p.getTitle().equalsIgnoreCase(title))
-                res.add(p);
-        }
-        return res;
+        return bookservice.searchByTitle(title);
     }
 
     @GetMapping("/book/{id}")
     public ResponseEntity<?> getBook(@PathVariable int id) {
-
-        for (Book s : books) {
-            if (id == s.getId()) {
-                return ResponseEntity.ok(s);
-            }
+        Book b = bookservice.getBookById(id);
+        if (b == null) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
-
+        return ResponseEntity.ok(b);
     }
 
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@Valid @RequestBody BookDTO dto) {
         Book nb = new Book(dto.getId(), dto.getTitle(),
                 dto.getAuthor(), dto.getDiscription(), dto.getPrice());
-        books.add(nb);
-        return ResponseEntity.status(201).body(nb);
+        Book sb = bookservice.addBook(nb);
+        return ResponseEntity.status(201).body(sb);
     }
 
     @PutMapping("/books/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable int id,
             @Valid @RequestBody BookDTO dto) {
-
-        for (Book s : books) {
-            if (id == s.getId()) {
-                s.setTitle(dto.getTitle());
-                s.setAuthor(dto.getAuthor());
-                s.setDiscription(dto.getDiscription());
-                s.setPrice(dto.getPrice());
-                return ResponseEntity.ok(s);
-            }
+        Book updateBook = bookservice.updateBook(id, dto);
+        if (updateBook == null) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(updateBook);
     }
 
     @DeleteMapping("/books/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable int id) {
-        boolean found = false;
-        Iterator<Book> it = books.iterator();
-        while (it.hasNext()) {
-            Book s = it.next();
-            if (id == s.getId()) {
-                it.remove();
-                found = true;
-                break;
-            }
-        }
-        if (found)
-            return ResponseEntity.noContent().build();
-        return ResponseEntity.status(404).body(new ErrorResponse("Book not found"));
+        boolean deleted= bookservice.deleteBook(id);
+    if (deleted){  return ResponseEntity.noContent().build();}
+    return ResponseEntity.status(404).body(new ErrorResponse("Book not found"));
 
     }
 }

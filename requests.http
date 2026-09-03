@@ -1,11 +1,20 @@
 
-PUT http://localhost:8080/books/104
+GET http://localhost:8080/books
+
+###
+POST http://localhost:8080/books
 Content-Type: application/json
 
 {
-      "id":104,  
-    "title":"MATLAB",
-    "author":"Rajkaml",
-    "discription":"Useful in Sigal Processing",
-    "price":812
+    "id":104,
+    "title":".Net",
+    "author":"Jackson",
+    "discription":"Useful in Visual Studio",
+    "price":549
 }
+###
+GET http://localhost:8080/books
+
+###
+
+DELETE http://localhost:8080/books/104
