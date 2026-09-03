@@ -10,6 +10,22 @@ private int id;
 private String title;
 @NotBlank
 private String author;
+public String getDiscription() {
+    return discription;
+}
+public void setDiscription(String discription) {
+    this.discription = discription;
+}
+public double getPrice() {
+    return price;
+}
+public void setPrice(double price) {
+    this.price = price;
+}
+@NotBlank
+private String discription;
+@Positive
+private double price;
 public int getId() {
     return id;
 }

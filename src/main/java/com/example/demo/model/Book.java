@@ -10,6 +10,27 @@ public class Book {
     private String title;
     @NotBlank
     private String author;
+    @NotBlank
+    private String discription;
+
+    public String getDiscription() {
+        return discription;
+    }
+
+    public void setDiscription(String discription) {
+        this.discription = discription;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Positive
+    private double price;
 
     public int getId() {
         return id;
@@ -42,5 +63,13 @@ public class Book {
         this.id = id;
         this.title = title;
         this.author = author;
+    }
+
+    public Book(int id, String title, String author ,String discription,double price) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.discription=discription;
+        this.price=price;
     }
 }

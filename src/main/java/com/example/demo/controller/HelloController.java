@@ -24,9 +24,9 @@ public class HelloController {
     ArrayList<Book> books = new ArrayList<>();
 
     public HelloController() {
-        books.add(new Book(101, "Java", "Smith"));
-        books.add(new Book(102, "Python", "Jhon"));
-        books.add(new Book(103, "SQL", "David"));
+        books.add(new Book(101, "Java", "Smith", "Programming Language", 587));
+        books.add(new Book(102, "Python", "Jhon", "Useful in AI", 489));
+        books.add(new Book(103, "SQL", "David", "Useful in Database", 450));
     }
 
     @GetMapping("/hello")
@@ -69,19 +69,22 @@ public class HelloController {
 
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@Valid @RequestBody BookDTO dto) {
-        Book nb=new Book(dto.getId(),dto.getTitle(),dto.getAuthor());
+        Book nb = new Book(dto.getId(), dto.getTitle(),
+                dto.getAuthor(), dto.getDiscription(), dto.getPrice());
         books.add(nb);
         return ResponseEntity.status(201).body(nb);
     }
 
     @PutMapping("/books/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable int id,
-            @RequestBody Book book) {
+            @Valid @RequestBody BookDTO dto) {
 
         for (Book s : books) {
             if (id == s.getId()) {
-                s.setTitle(book.getTitle());
-                s.setAuthor(book.getAuthor());
+                s.setTitle(dto.getTitle());
+                s.setAuthor(dto.getAuthor());
+                s.setDiscription(dto.getDiscription());
+                s.setPrice(dto.getPrice());
                 return ResponseEntity.ok(s);
             }
         }

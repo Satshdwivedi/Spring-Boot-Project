@@ -1,10 +1,11 @@
- 
- 
- POST http://localhost:8080/books
- Content-Type: application/json
 
- {
-   "id": 104,
-   "title" : ".Net",
-   "author": "Warner"
- }
+PUT http://localhost:8080/books/104
+Content-Type: application/json
+
+{
+      "id":104,  
+    "title":"MATLAB",
+    "author":"Rajkaml",
+    "discription":"Useful in Sigal Processing",
+    "price":812
+}
