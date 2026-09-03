@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.BookDTO;
 import com.example.demo.model.Book;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,9 +68,10 @@ public class HelloController {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<Book> addBook(@Valid@RequestBody Book book) {
-        books.add(book);
-        return ResponseEntity.status(201).body(book);
+    public ResponseEntity<Book> addBook(@Valid @RequestBody BookDTO dto) {
+        Book nb=new Book(dto.getId(),dto.getTitle(),dto.getAuthor());
+        books.add(nb);
+        return ResponseEntity.status(201).body(nb);
     }
 
     @PutMapping("/books/{id}")
