@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.BookDTO;
 import com.example.demo.model.Book;
-import java.util.ArrayList;
+import java.util.List;
+
 import com.example.demo.model.ErrorResponse;
 import com.example.demo.service.BookService;
 
@@ -37,13 +38,12 @@ public class HelloController {
     }
 
     @GetMapping("/books")
-    public ArrayList<Book> books() {
-
+    public List<Book> books() {
         return bookservice.getAllBooks();
     }
 
     @GetMapping("/books/search")
-    public ArrayList<Book> search(@RequestParam(required = false) String title) {
+    public List<Book> search(@RequestParam(required = false) String title) {
         return bookservice.searchByTitle(title);
     }
 
@@ -76,9 +76,11 @@ public class HelloController {
 
     @DeleteMapping("/books/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable int id) {
-        boolean deleted= bookservice.deleteBook(id);
-    if (deleted){  return ResponseEntity.noContent().build();}
-    return ResponseEntity.status(404).body(new ErrorResponse("Book not found"));
+        boolean deleted = bookservice.deleteBook(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.status(404).body(new ErrorResponse("Book not found"));
 
     }
 }

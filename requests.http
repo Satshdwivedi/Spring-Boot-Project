@@ -1,20 +1,18 @@
 
-GET http://localhost:8080/books
-
-###
 POST http://localhost:8080/books
 Content-Type: application/json
 
 {
-    "id":104,
-    "title":".Net",
-    "author":"Jackson",
-    "discription":"Useful in Visual Studio",
-    "price":549
+    "id":103,
+    "title":"SQL",
+    "author":"David",
+    "discription":"Useful in Databases",
+    "price":613
+
 }
+
 ###
+
 GET http://localhost:8080/books
 
-###
-
-DELETE http://localhost:8080/books/104
+ 

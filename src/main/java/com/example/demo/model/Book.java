@@ -1,9 +1,13 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
+@Entity
 public class Book {
+    @Id
     @Positive
     private int id;
     @NotBlank(message = "Title can not be empty")
@@ -65,11 +69,11 @@ public class Book {
         this.author = author;
     }
 
-    public Book(int id, String title, String author ,String discription,double price) {
+    public Book(int id, String title, String author, String discription, double price) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.discription=discription;
-        this.price=price;
+        this.discription = discription;
+        this.price = price;
     }
 }

@@ -3,70 +3,52 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Book;
 import com.example.demo.model.BookDTO;
+import com.example.demo.repository.BookRepository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class BookService {
-    ArrayList<Book> books = new ArrayList<>();
+    private BookRepository bookrepo;
 
-    public BookService() {
-        books.add(new Book(101, "Java", "Smith", "Programming Language", 587));
-        books.add(new Book(102, "Python", "Jhon", "Useful in AI", 489));
-        books.add(new Book(103, "SQL", "David", "Useful in Database", 450));
+    public BookService(BookRepository bookrepo) {
+        this.bookrepo = bookrepo;
     }
 
-    public ArrayList<Book> getAllBooks() {
-        return books;
+    public List<Book> getAllBooks() {
+        return bookrepo.findAll();
     }
 
     public Book getBookById(int id) {
-        for (Book b : books) {
-            if (id == b.getId()) {
-                return b;
-            }
-        }
-        return null;
+        return bookrepo.findById(id).orElse(null);
     }
 
-    public ArrayList<Book> searchByTitle(String title) {
-        ArrayList<Book> res = new ArrayList<>();
-        for (Book p : books) {
-            if (p.getTitle().equalsIgnoreCase(title)) {
-                res.add(p);
-            }
-        }
-        return res;
+    public List<Book> searchByTitle(String title) {
+        return bookrepo.findByTitleIgnoreCase(title);
     }
 
     public Book addBook(Book bk) {
-        books.add(bk);
-        return bk;
+        return bookrepo.save(bk);
     }
 
     public Book updateBook(int id, BookDTO dto) {
-        for (Book s : books) {
-            if (id == s.getId()) {
-                s.setTitle(dto.getTitle());
-                s.setAuthor(dto.getAuthor());
-                s.setDiscription(dto.getDiscription());
-                s.setPrice(dto.getPrice());
-                return s;
-            }
-        }
-        return null;
+
+        Book s = bookrepo.findById(id).orElse(null);
+        if (s == null)
+            return null;
+        s.setTitle(dto.getTitle());
+        s.setAuthor(dto.getAuthor());
+        s.setDiscription(dto.getDiscription());
+        s.setPrice(dto.getPrice());
+        return bookrepo.save(s);
     }
 
     public boolean deleteBook(int id) {
-        Iterator<Book> it = books.iterator();
-        while (it.hasNext()) {
-            Book s = it.next();
-            if (id == s.getId()) {
-                it.remove();
-                return true;
-            }
+        if (bookrepo.existsById(id)) {
+            bookrepo.deleteById(id);
+            return true;
         }
+
         return false;
     }
 }
