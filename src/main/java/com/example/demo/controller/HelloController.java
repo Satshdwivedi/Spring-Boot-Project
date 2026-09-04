@@ -34,7 +34,7 @@ public class HelloController {
 
     @GetMapping("/book")
     public Book book() {
-        return new Book(101, "Java", "Smith");
+        return new Book( "Java", "Smith");
     }
 
     @GetMapping("/books")
@@ -58,7 +58,7 @@ public class HelloController {
 
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@Valid @RequestBody BookDTO dto) {
-        Book nb = new Book(dto.getId(), dto.getTitle(),
+        Book nb = new Book( dto.getTitle(),
                 dto.getAuthor(), dto.getDiscription(), dto.getPrice());
         Book sb = bookservice.addBook(nb);
         return ResponseEntity.status(201).body(sb);

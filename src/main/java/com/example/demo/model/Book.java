@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -8,7 +10,7 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class Book {
     @Id
-    @Positive
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "Title can not be empty")
     private String title;
@@ -16,6 +18,16 @@ public class Book {
     private String author;
     @NotBlank
     private String discription;
+    @Positive
+    private double price;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDiscription() {
         return discription;
@@ -31,17 +43,6 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    @Positive
-    private double price;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -63,17 +64,16 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String title, String author) {
-        this.id = id;
+    public Book(String title, String author) {
         this.title = title;
         this.author = author;
     }
 
-    public Book(int id, String title, String author, String discription, double price) {
-        this.id = id;
+    public Book(String title, String author, String discription, double price) {
         this.title = title;
         this.author = author;
         this.discription = discription;
         this.price = price;
     }
+
 }

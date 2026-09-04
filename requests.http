@@ -1,18 +1,3 @@
 
-POST http://localhost:8080/books
-Content-Type: application/json
 
-{
-    "id":103,
-    "title":"SQL",
-    "author":"David",
-    "discription":"Useful in Databases",
-    "price":613
-
-}
-
-###
-
-GET http://localhost:8080/books
-
- 
+ GET http://localhost:8080/books

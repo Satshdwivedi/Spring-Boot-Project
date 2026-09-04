@@ -4,8 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 public class BookDTO {
-@Positive
-private int id;
+
 @NotBlank
 private String title;
 @NotBlank
@@ -26,12 +25,6 @@ public void setPrice(double price) {
 private String discription;
 @Positive
 private double price;
-public int getId() {
-    return id;
-}
-public void setId(int id) {
-    this.id = id;
-}
 public String getTitle() {
     return title;
 }
