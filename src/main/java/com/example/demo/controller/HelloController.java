@@ -11,20 +11,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.BookDTO;
+import com.example.demo.model.BorrowRecord;
 import com.example.demo.model.Book;
 import java.util.List;
 
 import com.example.demo.model.ErrorResponse;
+import com.example.demo.model.Member;
 import com.example.demo.service.BookService;
+import com.example.demo.service.BorrowRecordService;
+import com.example.demo.service.MemberService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class HelloController {
     private BookService bookservice;
+    private MemberService memberservice;
+    private BorrowRecordService borrowrecordservice;
 
-    public HelloController(BookService bookservice) {
+    public HelloController(BookService bookservice, MemberService memberservice,
+            BorrowRecordService borrowrecordservice) {
         this.bookservice = bookservice;
+        this.memberservice = memberservice;
+        this.borrowrecordservice = borrowrecordservice;
     }
 
     @GetMapping("/hello")
@@ -83,4 +92,31 @@ public class HelloController {
         return ResponseEntity.status(404).body(new ErrorResponse("Book not found"));
 
     }
+    @PostMapping("/members")
+    public Member addMember(@RequestBody Member mam )
+   { return memberservice.addMember(mam);
+
+   }
+   @PostMapping("/borrow")
+   public BorrowRecord addBorrowRecord(@RequestBody BorrowRecord brr)
+   {
+    return borrowrecordservice.addBorrowRecord(brr);
+   }
+   @GetMapping("/borrow")
+    public List<BorrowRecord> brrs() {
+        return borrowrecordservice.getAllBorrowRecords();}
+
+    @PutMapping("/borrow/{id}")
+    public BorrowRecord updateBorrowRecord(@PathVariable int id){
+    BorrowRecord result=borrowrecordservice.returnBook(id);
+    if(result==null){return null;}
+    return result;
+    }
+    @GetMapping("/member/{id}")
+    public List<BorrowRecord> getMem(@PathVariable int id){
+        Member m=memberservice.getMemberById(id);
+        if(m==null){return null;}
+        return m.getBorrowRecords();
+    }
 }
+
