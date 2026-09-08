@@ -18,10 +18,16 @@ import java.util.List;
 import com.example.demo.model.ErrorResponse;
 import com.example.demo.model.Member;
 import com.example.demo.model.Passport;
+import com.example.demo.model.Student;
+import com.example.demo.model.Course;
 import com.example.demo.service.BookService;
 import com.example.demo.service.BorrowRecordService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PassportService;
+import com.example.demo.service.StudentService;
+import com.example.demo.service.CourseService;
+
+
 
 import jakarta.validation.Valid;
 
@@ -31,13 +37,18 @@ public class HelloController {
     private MemberService memberservice;
     private BorrowRecordService borrowrecordservice;
     private PassportService passportservice;
+    private StudentService studentservice;
+    private CourseService courseservice;
 
     public HelloController(BookService bookservice, MemberService memberservice,
-            BorrowRecordService borrowrecordservice, PassportService passportservice) {
+            BorrowRecordService borrowrecordservice, PassportService passportservice, StudentService studentservice,
+            CourseService courseservice) {
         this.bookservice = bookservice;
         this.memberservice = memberservice;
         this.borrowrecordservice = borrowrecordservice;
         this.passportservice = passportservice;
+        this.studentservice = studentservice;
+        this.courseservice = courseservice;
     }
 
     @GetMapping("/hello")
@@ -144,5 +155,17 @@ public class HelloController {
    @GetMapping("/members")
     public List<Member> members() {
         return memberservice.getAllMembers();
+    }
+    @PostMapping("/students")
+    public Student addStuden(@RequestBody Student st){
+        return studentservice.addStudent(st);
+    }
+    @PostMapping("/courses")
+    public Course addCour(@RequestBody Course c){
+        return courseservice.addCourses(c);
+    }
+    @GetMapping("/course/{id}")
+    public Course getCourse(@PathVariable int id){
+        return courseservice.getCouById(id);
     }
 } 
