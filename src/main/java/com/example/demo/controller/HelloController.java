@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -167,5 +169,9 @@ public class HelloController {
     @GetMapping("/course/{id}")
     public Course getCourse(@PathVariable int id){
         return courseservice.getCouById(id);
+    }
+    @GetMapping("/students")
+    public Page<Student>getstudents(Pageable pageable){
+        return studentservice.getStudents(pageable);
     }
 } 

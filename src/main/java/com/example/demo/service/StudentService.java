@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import java.util.List;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
@@ -19,6 +22,10 @@ public class StudentService {
     public List<Student>getAllStudents(){
         return studentrepo.findAll();
     }
+    public Page<Student> getStudents(Pageable pageable){
+        return studentrepo.findAll(pageable);
+    } 
+
 
 
 
