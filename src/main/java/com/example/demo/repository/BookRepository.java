@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface BookRepository extends JpaRepository<Book,Integer> //Book yahan entity class ka nam 
- {  List<Book>findByTitleIgnoreCase(String title);                                                                  //aur Integer primary key ka data type hai
+{  List<Book>findByTitleIgnoreCase(String title);                                                                  //aur Integer primary key ka data type hai
 
 
 

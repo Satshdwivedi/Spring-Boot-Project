@@ -27,6 +27,12 @@ public class BorrowRecordService {
    rec.setReturnDate(LocalDate.now());
    return borrowRecordrepo.save(rec);
  }
- 
+ public boolean deleteBorrowRecord(int id){
+           if(borrowRecordrepo.existsById(id)){
+            borrowRecordrepo.deleteById(id);
+            return true;
+           }
+         return false;
+ }
 
 }

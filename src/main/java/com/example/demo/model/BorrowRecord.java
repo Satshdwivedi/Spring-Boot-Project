@@ -2,7 +2,8 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class BorrowRecord {
 private int id;
 @ManyToOne 
 @JoinColumn(name="br_mem_id")
-@JsonBackReference 
+@JsonIgnore 
 private Member member;
 @ManyToOne
 @JoinColumn(name="br_book_id")

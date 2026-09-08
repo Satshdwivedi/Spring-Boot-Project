@@ -3,13 +3,16 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Member {
@@ -62,14 +65,32 @@ public class Member {
 
     public Member() {
     }
-
-
+   
     @OneToMany(mappedBy="member")
-    @JsonManagedReference
+    @JsonIgnore 
     private List<BorrowRecord>borrowRecord=new ArrayList<>();
+    
+    @JsonIgnore
     public List<BorrowRecord>getBorrowRecords(){
         return borrowRecord;
+     }
+
+    @OneToOne
+    @JoinColumn(name="passport_id")
+    private Passport passport;
+
+    public Member(Passport passport) {
+        this.passport = passport;
     }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
 
 
 }

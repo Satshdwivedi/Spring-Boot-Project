@@ -17,9 +17,11 @@ import java.util.List;
 
 import com.example.demo.model.ErrorResponse;
 import com.example.demo.model.Member;
+import com.example.demo.model.Passport;
 import com.example.demo.service.BookService;
 import com.example.demo.service.BorrowRecordService;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.PassportService;
 
 import jakarta.validation.Valid;
 
@@ -28,12 +30,14 @@ public class HelloController {
     private BookService bookservice;
     private MemberService memberservice;
     private BorrowRecordService borrowrecordservice;
+    private PassportService passportservice;
 
     public HelloController(BookService bookservice, MemberService memberservice,
-            BorrowRecordService borrowrecordservice) {
+            BorrowRecordService borrowrecordservice, PassportService passportservice) {
         this.bookservice = bookservice;
         this.memberservice = memberservice;
         this.borrowrecordservice = borrowrecordservice;
+        this.passportservice = passportservice;
     }
 
     @GetMapping("/hello")
@@ -118,5 +122,27 @@ public class HelloController {
         if(m==null){return null;}
         return m.getBorrowRecords();
     }
-}
+    @DeleteMapping("/borrow/{id}")
+    public ResponseEntity<?> deleteBorrowRecord(@PathVariable int id) {
+        boolean delete = borrowrecordservice.deleteBorrowRecord(id);
+        if (delete) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.status(404).body(new ErrorResponse("BorroeRecord not found"));
 
+}
+     @PostMapping("/passports")
+    public Passport addPasport(@RequestBody Passport pas )
+   { return passportservice.addPassport(pas);
+
+   }
+   @GetMapping("/member/passport/{id}")
+   public Passport getMemPassport(@PathVariable int id){
+   Member memb=memberservice.getMemberById(id);
+   return memb.getPassport();
+   }
+   @GetMapping("/members")
+    public List<Member> members() {
+        return memberservice.getAllMembers();
+    }
+} 
