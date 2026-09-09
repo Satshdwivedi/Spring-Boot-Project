@@ -2,7 +2,8 @@ package com.example.demo.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
@@ -41,7 +42,7 @@ public Student() {
 @ManyToMany 
 @JoinTable(name="student_course",joinColumns=@JoinColumn(name="student_id"),
            inverseJoinColumns=@JoinColumn(name="course_id") )
-@JsonManagedReference 
+@JsonIgnore 
  private List<Course>cou;
 public List<Course> getCou() {
     return cou;

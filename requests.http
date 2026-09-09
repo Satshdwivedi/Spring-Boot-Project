@@ -1,5 +1,5 @@
  
-GET http://localhost:8080/students?page=0&size=5&sort=name,desc
+DELETE http://localhost:8080/student/delete/1
 
 
  

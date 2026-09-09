@@ -21,6 +21,7 @@ import com.example.demo.model.ErrorResponse;
 import com.example.demo.model.Member;
 import com.example.demo.model.Passport;
 import com.example.demo.model.Student;
+import com.example.demo.model.UpdateStudentDTO;
 import com.example.demo.model.Course;
 import com.example.demo.service.BookService;
 import com.example.demo.service.BorrowRecordService;
@@ -174,4 +175,48 @@ public class HelloController {
     public Page<Student>getstudents(Pageable pageable){
         return studentservice.getStudents(pageable);
     }
+    @GetMapping("/student/jpql")
+    public List<Student>getstu(){
+        return studentservice.getJPStudents();
+    }
+    @GetMapping("/students/jpql1")
+    public List<Student>getst(@RequestParam int age){
+        return studentservice.getJPStuden(age);
+    }
+    @GetMapping("/student/jpql2")
+    public List<Student>getst1(@RequestParam int age,@RequestParam String name){
+        return studentservice.getJPS(age,name);
+    }
+    @GetMapping("/student/jpql4")
+    public List<Student>getst2(@RequestParam String name){
+        return studentservice.getJPS1(name);
+    }
+    @GetMapping("/student/jpql3")
+    public List<Student>getst3(@RequestParam int minage,@RequestParam int maxage){
+        return studentservice.getJPS2(minage,maxage);
 } 
+    @GetMapping("/student/jpql5")
+    public List<Student>getst4(@RequestParam List<Integer>ages){
+        return studentservice.getJPS3(ages);
+}
+    @GetMapping("/student/distinct")
+    public List<Integer>getst5(){
+        return studentservice.getJPS4();
+}
+    @GetMapping("/student/orderby")
+    public List<Student>getst6(){
+        return studentservice.getJPS5();
+}  
+    @GetMapping("/student/having")
+    public List<Object[]>getst7(){
+        return studentservice.getJPS6();
+}  
+    @PutMapping("/student/update/{id}")
+    int getst8(@PathVariable int id,@RequestBody UpdateStudentDTO stu){
+        return studentservice.getJPS7(id,stu.getAge());
+}
+    @DeleteMapping("/student/delete/{id}")
+    int delst(@PathVariable int id){
+        return studentservice.getJPS8(id);
+    }
+}
