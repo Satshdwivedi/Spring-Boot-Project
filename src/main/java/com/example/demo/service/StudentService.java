@@ -63,4 +63,22 @@ public class StudentService {
     public int getJPS8(int id){
         return studentrepo.deleteStudent(id);
     }
+    public List<Student>getST(String name){
+        return studentrepo.findByName(name);
+    }
+    public List<Student>getST1(int age){
+        return studentrepo.findByAge(age);
+    }
+    public List<Student>getST2(int age){
+        return studentrepo.findByAgeGreaterThan(age);
+    }
+    public List<Student>getST3(String name){
+        return studentrepo.findByNameContaining(name);
+    }
+    public List<Student>getST4(int minage,int maxage){
+        return studentrepo.findByAgeBetween(minage, maxage);
+}
+    public List<Student>getST5(List<Integer>ages){
+        return studentrepo.findByAgeIn(ages);
+}
 }

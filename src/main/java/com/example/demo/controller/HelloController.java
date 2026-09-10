@@ -219,4 +219,28 @@ public class HelloController {
     int delst(@PathVariable int id){
         return studentservice.getJPS8(id);
     }
+    @GetMapping("/student/name")
+    public List<Student> fNameST(@RequestParam String name){
+        return studentservice.getST(name);
+    }
+    @GetMapping("/student/age")
+    public List<Student> fAgeST(@RequestParam int age){
+        return studentservice.getST1(age);
+    }
+    @GetMapping("/student/age/greater")
+    public List<Student> fAgeGreaterST(@RequestParam int age){
+        return studentservice.getST2(age);
+    }
+    @GetMapping("/student/name/contains")
+    public List<Student>fNameContain(@RequestParam String name){
+        return studentservice.getST3(name);
+    }
+    @GetMapping("/student/age/between")
+    public List<Student>fAgeBetween(@RequestParam int minage,@RequestParam int maxage){
+        return studentservice.getST4(minage,maxage);
+}   
+    @GetMapping("/student/age")
+    public List<Student>fAgeIn(@RequestParam List<Integer>ages){
+        return studentservice.getST5(ages);
+}
 }

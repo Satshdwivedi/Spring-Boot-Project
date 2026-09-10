@@ -1,5 +1,5 @@
  
-DELETE http://localhost:8080/student/delete/1
+GET http://localhost:8080/student/age/in?ages=19&ages=21
 
 
  

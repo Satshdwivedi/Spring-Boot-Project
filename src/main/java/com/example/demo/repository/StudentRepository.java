@@ -34,9 +34,12 @@ int updateAge(@Param("id")int id,@Param("age")int age);
 @Modifying
 @Query("DELETE from Student s where s.id=:id")
 int deleteStudent(@Param("id")int id);
-
-
-
+List<Student>findByName(String name);
+List<Student>findByAge(int age);
+List<Student>findByAgeGreaterThan(int age);
+List<Student>findByNameContaining(String name);
+List<Student>findByAgeBetween(int minage,int maxage);
+List<Student>findByAgeIn(List<Integer>ages);
 
 
 
