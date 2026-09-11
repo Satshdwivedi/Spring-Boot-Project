@@ -239,7 +239,7 @@ public class HelloController {
     public List<Student>fAgeBetween(@RequestParam int minage,@RequestParam int maxage){
         return studentservice.getST4(minage,maxage);
 }   
-    @GetMapping("/student/age")
+    @GetMapping("/student/age/in")
     public List<Student>fAgeIn(@RequestParam List<Integer>ages){
         return studentservice.getST5(ages);
 }

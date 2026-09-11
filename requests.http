@@ -1,5 +1,15 @@
  
-GET http://localhost:8080/student/age/in?ages=19&ages=21
+ ###Change logger level
+POST http://localhost:8080/actuator/loggers/com.example.demo
+Content-Type: application/json
 
+{
+  "configuredLevel": "DEBUG"
+}
+###
 
+GET http://localhost:8080/actuator/loggers/com.example.demo
+
+###
+GET http://localhost:8080/actuator/loggers/root
  
