@@ -3,6 +3,11 @@ package com.example.demo.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +23,7 @@ import com.example.demo.model.Book;
 import java.util.List;
 
 import com.example.demo.model.ErrorResponse;
+import com.example.demo.model.LoginDTO;
 import com.example.demo.model.Member;
 import com.example.demo.model.Passport;
 import com.example.demo.model.Student;
@@ -30,8 +36,8 @@ import com.example.demo.service.PassportService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.CourseService;
 
-
-
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -42,17 +48,23 @@ public class HelloController {
     private PassportService passportservice;
     private StudentService studentservice;
     private CourseService courseservice;
+    private AuthenticationManager authenticationManager;
+    private HttpSessionSecurityContextRepository securityContextRepository=
+    new HttpSessionSecurityContextRepository();
 
     public HelloController(BookService bookservice, MemberService memberservice,
             BorrowRecordService borrowrecordservice, PassportService passportservice, StudentService studentservice,
-            CourseService courseservice) {
+            CourseService courseservice, AuthenticationManager authenticationManager) {
         this.bookservice = bookservice;
         this.memberservice = memberservice;
         this.borrowrecordservice = borrowrecordservice;
         this.passportservice = passportservice;
         this.studentservice = studentservice;
         this.courseservice = courseservice;
+        this.authenticationManager = authenticationManager;
     }
+    
+    
 
     @GetMapping("/hello")
     public String hello() {
@@ -243,4 +255,13 @@ public class HelloController {
     public List<Student>fAgeIn(@RequestParam List<Integer>ages){
         return studentservice.getST5(ages);
 }
+     @PostMapping("/login")
+     public String login(@RequestBody LoginDTO login,HttpServletRequest request,HttpServletResponse response){
+    UsernamePasswordAuthenticationToken token=
+    new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
+    Authentication authentication=authenticationManager.authenticate(token);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    securityContextRepository.saveContext(SecurityContextHolder.getContext(),request, response);
+    return "Login Successful";
+  }
 }

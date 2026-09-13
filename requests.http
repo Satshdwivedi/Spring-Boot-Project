@@ -1,15 +1,16 @@
- 
- ###Change logger level
-POST http://localhost:8080/actuator/loggers/com.example.demo
+POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "configuredLevel": "DEBUG"
-}
+     "email": "test@gmail.com",
+    "password": "1234"
+    
+    }
+
 ###
 
-GET http://localhost:8080/actuator/loggers/com.example.demo
+GET http://localhost:8080/books
 
-###
-GET http://localhost:8080/actuator/loggers/root
- 
+### 
+
+GET http://localhost:8080/localhost:8080/localhost:8080/students

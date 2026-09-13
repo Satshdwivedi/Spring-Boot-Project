@@ -23,6 +23,8 @@ public class Member {
     private String name;
     private String email;
     private String mobno;
+    private String password;
+    private String role;
     
     public int getId() {
         return id;
@@ -55,14 +57,30 @@ public class Member {
     public void setMobno(String mobno) {
         this.mobno = mobno;
     }
+    
+    public String getPassword() {
+        return password;
+    }
 
-    public Member(String name, String email, String mobno) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Member(String name, String email, String mobno, String password, String role) {
         this.name = name;
         this.email = email;
         this.mobno = mobno;
+        this.password = password;
+        this.role = role;
     }
-    
-
     public Member() {
     }
    
