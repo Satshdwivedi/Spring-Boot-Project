@@ -7,7 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +35,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.service.PassportService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.CourseService;
-
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.demo.service.JwtService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -49,12 +47,13 @@ public class HelloController {
     private StudentService studentservice;
     private CourseService courseservice;
     private AuthenticationManager authenticationManager;
-    private HttpSessionSecurityContextRepository securityContextRepository=
-    new HttpSessionSecurityContextRepository();
+    private JwtService jwtService;
+    
 
     public HelloController(BookService bookservice, MemberService memberservice,
             BorrowRecordService borrowrecordservice, PassportService passportservice, StudentService studentservice,
-            CourseService courseservice, AuthenticationManager authenticationManager) {
+            CourseService courseservice, AuthenticationManager authenticationManager, JwtService jwtService
+            ) {
         this.bookservice = bookservice;
         this.memberservice = memberservice;
         this.borrowrecordservice = borrowrecordservice;
@@ -62,9 +61,8 @@ public class HelloController {
         this.studentservice = studentservice;
         this.courseservice = courseservice;
         this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
-    
-    
 
     @GetMapping("/hello")
     public String hello() {
@@ -256,12 +254,21 @@ public class HelloController {
         return studentservice.getST5(ages);
 }
      @PostMapping("/login")
-     public String login(@RequestBody LoginDTO login,HttpServletRequest request,HttpServletResponse response){
+     public String login(@RequestBody LoginDTO login){
     UsernamePasswordAuthenticationToken token=
     new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
     Authentication authentication=authenticationManager.authenticate(token);
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    securityContextRepository.saveContext(SecurityContextHolder.getContext(),request, response);
-    return "Login Successful";
+    String token1=jwtService.generateToken(authentication.getName(),
+    authentication.getAuthorities().iterator().next().getAuthority());
+    return token1;
+  }
+  @PostMapping("/decode")
+  public String decode(@RequestBody String token){
+    return jwtService.decodeToken(token.trim());
+  }
+  @PostMapping("/encode")
+  public String encode(@RequestBody String token1){
+    return jwtService.encodeToken(token1.trim());
   }
 }

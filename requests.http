@@ -1,16 +1,11 @@
+
 POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-     "email": "test@gmail.com",
+    "email": "test@gmail.com",
     "password": "1234"
-    
-    }
-
-###
-
-GET http://localhost:8080/books
-
+}
 ### 
-
-GET http://localhost:8080/localhost:8080/localhost:8080/students
+GET http://localhost:8080/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE3ODkzODMwNDN9.Lgkr-A5HFdm2MaMkijyPG5NTH-PPy9FXZcDF30hik-s
