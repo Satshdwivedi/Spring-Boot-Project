@@ -9,13 +9,12 @@ import com.example.demo.CustomUserDetails;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService{
-    private MemberRepository memberre;
-  
-    public CustomUserDetailsService(MemberRepository memberre) {
-        this.memberre = memberre;
-    }
+    private final MemberRepository memberre;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

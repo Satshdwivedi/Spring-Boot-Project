@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.BorrowRecord;
 import com.example.demo.repository.BorrowRecordRepository;
 
-@Service 
-public class BorrowRecordService {
- private BorrowRecordRepository borrowRecordrepo;
+import lombok.RequiredArgsConstructor;
 
- public BorrowRecordService(BorrowRecordRepository borrowRecordrepo) {
-    this.borrowRecordrepo = borrowRecordrepo;
- }
+@Service 
+@RequiredArgsConstructor
+public class BorrowRecordService {
+ private final BorrowRecordRepository borrowRecordrepo;
+
  public BorrowRecord addBorrowRecord(BorrowRecord brr){
     return borrowRecordrepo.save(brr);
  }

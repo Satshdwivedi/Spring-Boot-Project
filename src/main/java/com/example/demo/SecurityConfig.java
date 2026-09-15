@@ -18,18 +18,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.example.demo.security.JwtFilter;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
  
-    private UserDetailsService userDetailsService;
-    private JwtFilter jwtFilter;
-    
-    public SecurityConfig(UserDetailsService userDetailsService, JwtFilter jwtFilter) {
-        this.userDetailsService = userDetailsService;
-        this.jwtFilter = jwtFilter;
-    }
+    private final UserDetailsService userDetailsService;
+    private final JwtFilter jwtFilter;
     
     @Bean
     public PasswordEncoder passwordEncoder(){

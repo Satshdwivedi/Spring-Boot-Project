@@ -10,20 +10,17 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PassportRepository;
+
+import lombok.RequiredArgsConstructor;
+
 import com.example.demo.model.Passport;
 
 @Service 
+@RequiredArgsConstructor 
 public class MemberService {
-    private MemberRepository memberrepo;
-     private PassportRepository passportrepo;
+    private final MemberRepository memberrepo;
+     private final PassportRepository passportrepo;
      private final PasswordEncoder passwordEncoder;
-
-    public MemberService(MemberRepository memberrepo, PassportRepository passportrepo,
-            PasswordEncoder passwordEncoder) {
-        this.memberrepo = memberrepo;
-        this.passportrepo = passportrepo;
-        this.passwordEncoder = passwordEncoder;
-    }
    
     public Member addMember(Member mem) {
         Passport pass=passportrepo.findById(mem.getPassport().getId()).orElse(null);

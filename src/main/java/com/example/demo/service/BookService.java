@@ -5,15 +5,14 @@ import com.example.demo.model.Book;
 import com.example.demo.model.BookDTO;
 import com.example.demo.repository.BookRepository;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor 
 public class BookService {
-    private BookRepository bookrepo;
-
-    public BookService(BookRepository bookrepo) {
-        this.bookrepo = bookrepo;
-    }
+    private  final BookRepository bookrepo;
 
     public List<Book> getAllBooks() {
         return bookrepo.findAll();

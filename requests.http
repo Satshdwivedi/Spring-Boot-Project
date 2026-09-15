@@ -6,6 +6,8 @@ Content-Type: application/json
     "email": "test@gmail.com",
     "password": "1234"
 }
+
 ### 
-GET http://localhost:8080/books
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE3ODkzODMwNDN9.Lgkr-A5HFdm2MaMkijyPG5NTH-PPy9FXZcDF30hik-s
+GET http://localhost:8080/student-test
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE3ODk0NTIwMTR9.GvC7SspkVVivXmzhehS5jR1ifJw46T2yr7IZXqX2kDM
+

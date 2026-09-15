@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
-@Service
-public class StudentService {
-    private StudentRepository studentrepo;
+import lombok.RequiredArgsConstructor;
 
-    public StudentService(StudentRepository studentrepo) {
-        this.studentrepo = studentrepo;
-    }
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+    private final StudentRepository studentrepo;
+    
     public Student addStudent(Student stu){
         return studentrepo.save(stu);
     }

@@ -37,32 +37,19 @@ import com.example.demo.service.StudentService;
 import com.example.demo.service.CourseService;
 import com.example.demo.service.JwtService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 public class HelloController {
-    private BookService bookservice;
-    private MemberService memberservice;
-    private BorrowRecordService borrowrecordservice;
-    private PassportService passportservice;
-    private StudentService studentservice;
-    private CourseService courseservice;
-    private AuthenticationManager authenticationManager;
-    private JwtService jwtService;
-    
-
-    public HelloController(BookService bookservice, MemberService memberservice,
-            BorrowRecordService borrowrecordservice, PassportService passportservice, StudentService studentservice,
-            CourseService courseservice, AuthenticationManager authenticationManager, JwtService jwtService
-            ) {
-        this.bookservice = bookservice;
-        this.memberservice = memberservice;
-        this.borrowrecordservice = borrowrecordservice;
-        this.passportservice = passportservice;
-        this.studentservice = studentservice;
-        this.courseservice = courseservice;
-        this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
-    }
+    private final BookService bookservice;
+    private final MemberService memberservice;
+    private final BorrowRecordService borrowrecordservice;
+    private final PassportService passportservice;
+    private final StudentService studentservice;
+    private final CourseService courseservice;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @GetMapping("/hello")
     public String hello() {
@@ -271,4 +258,14 @@ public class HelloController {
   public String encode(@RequestBody String token1){
     return jwtService.encodeToken(token1.trim());
   }
+  @GetMapping("/student-test")
+  public Student studentBuilder(){
+    return Student.builder()
+          .id(5)
+          .name("Sohan")
+          .age(23)
+          .build();
+  }
+
+
 }

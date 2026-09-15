@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.Member;
 
+
 public class CustomUserDetails implements UserDetails {
   private Member member;
 
