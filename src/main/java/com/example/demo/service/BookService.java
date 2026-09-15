@@ -1,28 +1,37 @@
 package com.example.demo.service;
 
+
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Book;
 import com.example.demo.model.BookDTO;
 import com.example.demo.repository.BookRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor 
+@RequiredArgsConstructor
+@Slf4j 
 public class BookService {
     private  final BookRepository bookrepo;
-
+    
     public List<Book> getAllBooks() {
+        log.info("Fetching All Books");
         return bookrepo.findAll();
     }
 
     public Book getBookById(int id) {
-        return bookrepo.findById(id).orElse(null);
+        Book book= bookrepo.findById(id).orElse(null);
+        if(book==null){
+            log.warn("Book not found with id{}",id);
+        }
+        return book;
     }
 
     public List<Book> searchByTitle(String title) {
+        log.debug("searching book with title:{}",title);
         return bookrepo.findByTitleIgnoreCase(title);
     }
 

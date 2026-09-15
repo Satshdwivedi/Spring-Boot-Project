@@ -1,4 +1,3 @@
-
 POST http://localhost:8080/login
 Content-Type: application/json
 
@@ -8,6 +7,6 @@ Content-Type: application/json
 }
 
 ### 
-GET http://localhost:8080/student-test
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE3ODk0NTIwMTR9.GvC7SspkVVivXmzhehS5jR1ifJw46T2yr7IZXqX2kDM
+GET http://localhost:8080/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE3ODk0NjIzMzR9.cy95T0LtNImodqB1u6bbdg14H38KmK7krco3PE6E1bo
 

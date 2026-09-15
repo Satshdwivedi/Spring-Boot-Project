@@ -29,6 +29,7 @@ private int id;
 private Member member;
 @ManyToOne
 @JoinColumn(name="br_book_id")
+@JsonIgnore
 private Book book;
 private LocalDate borrowdate;
 private LocalDate returnDate;
